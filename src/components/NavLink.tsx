@@ -28,9 +28,13 @@ export function NavLinks({ isLoggedIn, mobile = false }: NavLinksProps) {
       )}
 
       {!isLoggedIn ? (
-        <Button onClick={() => {}}>Login</Button>
+        <Button onClick={() => {}} className='mt-20 sm:mt-0'>
+          Login
+        </Button>
       ) : (
-        <Button onClick={() => {}}>Logout</Button>
+        <Button onClick={() => {}} className='mt-20 sm:mt-0'>
+          Logout
+        </Button>
       )}
     </div>
   );

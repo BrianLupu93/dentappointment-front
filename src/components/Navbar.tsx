@@ -1,6 +1,6 @@
 import { TbDental } from "react-icons/tb";
 import ThemeSwitch from "./ThemeSwitch";
-import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetTitle } from "./ui/sheet";
 import { IoMenu } from "react-icons/io5";
 import { NavLinks } from "./NavLink";
 const Navbar = () => {
@@ -22,8 +22,9 @@ const Navbar = () => {
             <SheetTrigger asChild>
               <IoMenu size={30} aria-label='Open menu' />
             </SheetTrigger>
+            <SheetTitle hidden />
             <SheetContent side='right' className='w-64'>
-              <div className='mt-10 flex flex-col gap-6'>
+              <div className='mt-10 flex flex-col gap-6 p-6'>
                 <ThemeSwitch />
                 <NavLinks isLoggedIn={isLoggedIn} mobile />
               </div>
