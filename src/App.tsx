@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import PageComponent from "./components/PageComponent";
 import { ThemeProvider } from "./context/themeContext";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
