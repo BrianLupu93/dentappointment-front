@@ -1,17 +1,36 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import React, { useState } from "react";
+import { useEffect } from "react";
+import { useAppointment } from "../context/appointmentContext";
+import { routes } from "@/context/api/routes";
+import { apiHandler } from "@/context/api/apiHandler";
+import type { Service } from "../context/types";
 
 const ServiceSelector = () => {
-  const [selectedService, setSelectedService] = useState<string | undefined>(
-    undefined,
-  );
+  const { state, dispatch } = useAppointment();
 
-  const services = [
-    { id: "id1", name: "serviceName1", duration: 30 },
-    { id: "id2", name: "serviceName2", duration: 30 },
-    { id: "id3", name: "serviceName3", duration: 30 },
-    { id: "id4", name: "serviceName4", duration: 30 },
-  ];
+  // On mount call the fetchServices to get all the available services
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  // Fetch service function, get all available service from de DB
+  async function fetchServices() {
+    try {
+      await apiHandler<Service[]>(routes.services, dispatch, (data) => ({
+        type: "SET_SERVICES",
+        payload: data,
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  // Handler to manage the selected service
+  const handleSelectService = (id: string) => {
+    const selectedService = state.services.find((s) => s._id === id);
+    if (selectedService) {
+      dispatch({ type: "SET_SELECTED_SERVICE", payload: selectedService });
+    }
+  };
 
   return (
     <ToggleGroup
@@ -20,18 +39,19 @@ const ServiceSelector = () => {
       variant='outline'
       spacing={2}
       className='flex flex-wrap'
-      value={selectedService}
-      onValueChange={setSelectedService}
+      value={state.selectedService?._id ?? ""}
+      onValueChange={(value) => handleSelectService(value)}
     >
-      {services.map((service) => (
-        <ToggleGroupItem
-          key={service.id}
-          value={service.id}
-          aria-label={service.name}
-        >
-          {service.name}
-        </ToggleGroupItem>
-      ))}
+      {state.services &&
+        state.services.map((service) => (
+          <ToggleGroupItem
+            key={`service-${service._id}`}
+            value={service._id}
+            aria-label={service.name}
+          >
+            {service.name}
+          </ToggleGroupItem>
+        ))}
     </ToggleGroup>
   );
 };
