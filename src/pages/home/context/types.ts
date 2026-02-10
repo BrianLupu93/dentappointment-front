@@ -1,5 +1,5 @@
 export interface Service {
-  id: string;
+  _id: string;
   name: string;
   duration: number; // minutes
 }
@@ -10,7 +10,7 @@ export interface ClientInfo {
   phone: string;
 }
 
-export type StartTime = string; // format 08-00
+export type StartTime = string; // format 08:00
 export type FormattedDate = string; // format 10-05-2026
 
 export interface Appointment {
@@ -20,12 +20,19 @@ export interface Appointment {
   startTime: StartTime;
 }
 
+export interface AvailableCalendarDay {
+  date: string;
+  full: boolean;
+}
+
 export interface AppointmentState {
   services: Service[];
   selectedService: Service | null;
   availableSlots: StartTime[];
-  selectedSlot: StartTime | null;
-  clientInfo: ClientInfo;
+  selectedStartTime: StartTime | null;
   currentDate: Date;
   selectedDay: FormattedDate;
+  calendarAvailability: AvailableCalendarDay[];
+  error?: string;
+  loading: boolean;
 }

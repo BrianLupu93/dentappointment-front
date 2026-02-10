@@ -6,18 +6,16 @@ import { formatDay } from "@/lib/utils";
 import { appointmentReducer } from "./appointmentReducer";
 import type { AppointmentAction } from "./appointmentActions";
 
-const initialState: AppointmentState = {
+export const initialState: AppointmentState = {
   services: [],
   selectedService: null,
   availableSlots: [],
-  selectedSlot: null,
-  clientInfo: {
-    fullName: "",
-    email: "",
-    phone: "",
-  },
+  selectedStartTime: null,
   currentDate: new Date(),
   selectedDay: formatDay(new Date()),
+  calendarAvailability: [],
+  loading: false,
+  error: "",
 };
 
 const AppointmentContext = createContext<{
