@@ -128,3 +128,16 @@
     @apply bg-background text-foreground;
   }
 }
+@layer components {
+  .no-spinner {
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    -moz-appearance: textfield;
+  }
+}

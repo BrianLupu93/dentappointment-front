@@ -1,6 +1,6 @@
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
-import { useTheme } from "@/context/themeContext";
+import { useTheme } from "@/context/theme/themeContext";
 
 const ThemeSwitch = () => {
   const { theme, toggleTheme } = useTheme();

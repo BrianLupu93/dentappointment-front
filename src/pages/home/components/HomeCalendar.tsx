@@ -1,22 +1,27 @@
 import { Calendar } from "@/components/ui/calendar";
-import { useState } from "react";
+
+import { useAppointment } from "../context/appointmentContext";
+import { formatDay } from "@/lib/utils";
 
 const HomeCalendar = () => {
-  const [date, setDate] = useState<Date>(new Date());
+  const { state, dispatch } = useAppointment();
 
-  console.log(date);
+  const handleSelectDay = (day: Date) => {
+    const formatted = formatDay(day); //
+    dispatch({ type: "SET_SELECTED_DAY", payload: formatted });
+  };
+
+  console.log(state.selectedDay);
+
   return (
     <Calendar
       className='w-full rounded-md'
       mode='single'
       required
-      defaultMonth={date}
-      selected={date}
-      onSelect={setDate}
-      //   disabled={bookedDates}
-      //   modifiers={{
-      //     booked: bookedDates,
-      //   }}
+      defaultMonth={state.currentDate}
+      selected={state.currentDate}
+      onSelect={handleSelectDay}
+      disabled={{ before: state.currentDate }}
       modifiersClassNames={{
         booked: "[&>button]:line-through opacity-100",
       }}

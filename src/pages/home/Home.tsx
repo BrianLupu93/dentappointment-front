@@ -1,12 +1,33 @@
 import ClientForm from "./components/ClientForm";
 import HomeCalendar from "./components/HomeCalendar";
+import HompageTitle from "./components/HompageTitle";
+import ServiceSelector from "./components/ServiceSelector";
+import TimeSelector from "./components/TimeSelector";
+import { AppointmentProvider } from "./context/appointmentContext";
+import AppFrame from "@/components/AppFrame";
 
 const Home = () => {
   return (
-    <div className='w-full flex flex-col sm:flex-row gap-4 p-6 border border-black dark:border-white rounded-md'>
-      <ClientForm />
-      <HomeCalendar />
-    </div>
+    <AppointmentProvider>
+      <div className='mx-auto'>
+        <HompageTitle />
+      </div>
+
+      <AppFrame>
+        <div className='flex flex-col sm:flex-row gap-4 items-center mb-4'>
+          <ClientForm />
+          <HomeCalendar />
+        </div>
+        <div className='flex flex-col items-start gap-4 mb-4'>
+          <div>Select a service</div>
+          <ServiceSelector />
+        </div>
+        <div className='flex flex-col items-start gap-4'>
+          <div>Select time</div>
+          <TimeSelector />
+        </div>
+      </AppFrame>
+    </AppointmentProvider>
   );
 };
 

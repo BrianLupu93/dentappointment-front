@@ -1,38 +1,16 @@
-import type { AppointmentState } from "./appointmentTypes";
-import type { AppointmentActions } from "./appointmentTypes";
-
-export const initialState: AppointmentState = {
-  personalInfo: { name: "", email: "", phone: "" },
-  service: null,
-  date: null,
-  startTime: null,
-};
+import type { AppointmentAction } from "./appointmentActions";
+import type { AppointmentState } from "./types";
 
 export function appointmentReducer(
   state: AppointmentState,
-  action: AppointmentActions,
+  action: AppointmentAction,
 ): AppointmentState {
   switch (action.type) {
-    case "SET_PERSONAL_INFO":
+    case "SET_SELECTED_DAY":
       return {
         ...state,
-        personalInfo: { ...state.personalInfo, ...action.payload },
+        selectedDay: action.payload,
       };
-
-    case "SET_SERVICE":
-      return {
-        ...state,
-        service: action.payload,
-      };
-
-    case "SET_DATE":
-      return { ...state, date: action.payload };
-
-    case "SET_START_TIME":
-      return { ...state, startTime: action.payload };
-
-    case "RESET_APPOINTMENT":
-      return initialState;
 
     default:
       return state;
