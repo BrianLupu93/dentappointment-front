@@ -11,6 +11,7 @@ import { Toaster } from "sonner";
 import { ServiceProvider } from "./context/service/serviceContext";
 import { AppointmentProvider } from "./context/appointment/appointmentContext";
 import Appointment from "./pages/appointment/Appointment";
+import { DashboardProvider } from "./context/dashboard/dashboardContext";
 
 function App() {
   return (
@@ -29,7 +30,14 @@ function App() {
                   </AppointmentProvider>
                 }
               />
-              <Route path='/dashboard' element={<Dashboard />} />
+              <Route
+                path='/dashboard'
+                element={
+                  <DashboardProvider>
+                    <Dashboard />
+                  </DashboardProvider>
+                }
+              />
               <Route
                 path='/services'
                 element={
