@@ -49,50 +49,53 @@ export const ServiceForm = ({ name, duration, active, _id }: ServiceProps) => {
       <Input
         defaultValue={duration}
         type='number'
-        className='w-3/12 sm:w-2/12 no-spinner'
+        className='w-2/12 sm:w-1/12 no-spinner'
         min={15}
         max={120}
         ref={durationRef}
       />
+      <div className='w-2/12 sm:w-1/12'>
+        <Input
+          type='checkbox'
+          className='w-4 h-4'
+          defaultChecked={active}
+          ref={activeRef}
+        />
+      </div>
 
-      <Input
-        type='checkbox'
-        className='w-4 h-4 mx-auto'
-        defaultChecked={active}
-        ref={activeRef}
-      />
-
-      <TiDelete
-        className='text-red-600 hover:scale-110 hover:cursor-pointer'
-        size={20}
-        onClick={() =>
-          confirmDelete({
-            id: _id,
-            name,
-            onConfirm: (id) => deleteService(id, dispatch),
-          })
-        }
-      />
-
-      {update.value && update.id === _id ? (
-        <FaRegSave
-          className='text-blue-600 hover:scale-110 hover:cursor-pointer'
+      <div className='flex gap-4 w-3/12 sm:w-2/12 justify-center'>
+        <TiDelete
+          className='text-red-600 hover:scale-110 hover:cursor-pointer'
           size={20}
           onClick={() =>
-            confirmUpdate({
+            confirmDelete({
               id: _id,
-              nameRef: nameRef,
-              durationRef: durationRef,
-              activeRef: activeRef,
-              onConfirm: (data) => {
-                updateService(data, dispatch);
-                dispatch({ type: "SET_SELECTED_SERVICE", payload: null });
-                setToUpdate({ id: "", value: false });
-              },
+              name,
+              onConfirm: (id) => deleteService(id, dispatch),
             })
           }
         />
-      ) : null}
+
+        {update.value && update.id === _id ? (
+          <FaRegSave
+            className='text-blue-600 hover:scale-110 hover:cursor-pointer w-2/12 '
+            size={20}
+            onClick={() =>
+              confirmUpdate({
+                id: _id,
+                nameRef: nameRef,
+                durationRef: durationRef,
+                activeRef: activeRef,
+                onConfirm: (data) => {
+                  updateService(data, dispatch);
+                  dispatch({ type: "SET_SELECTED_SERVICE", payload: null });
+                  setToUpdate({ id: "", value: false });
+                },
+              })
+            }
+          />
+        ) : null}
+      </div>
     </form>
   );
 };

@@ -39,8 +39,9 @@ const Services = () => {
         <div className=' flex mb-4 font-semibold'>Available services:</div>
         <div className='flex mb-4 gap-2 sm:gap-4 text-sm'>
           <span className='w-6/12 sm:w-8/12'>Service Name</span>
-          <span className='w-3/12 sm:w-2/12'>Duration</span>
-          <span className='mx-auto'>Active</span>
+          <span className='w-2/12 sm:w-1/12'>Duration</span>
+          <span className='w-2/12 sm:w-1/12'>Active</span>
+          <span className='w-2/12 sm:w-2/12'>Edit</span>
         </div>
         <div className='flex flex-col gap-4 mb-10'>
           {state.services ? (

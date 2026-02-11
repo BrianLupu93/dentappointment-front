@@ -20,22 +20,24 @@ const AddNewServiceForm = ({
       <Input
         placeholder='Service name'
         type='text'
-        className='w-6/12 sm:w-8/12'
+        className='w-5/12 sm:w-7/12'
         ref={serviceNameRef}
         name='name'
       />
       <Input
         placeholder='min'
         type='number'
-        className='w-3/12 sm:w-2/12 no-spinner'
+        className='w-2/12 sm:w-1/12 no-spinner'
         min={15}
         max={120}
         ref={serviceDurationRef}
         name='duration'
       />
-      <Button type='button' onClick={handleClick}>
-        Add
-      </Button>
+      <div className='w-2/12 sm:w-4/12 justify-end'>
+        <Button type='button' onClick={handleClick}>
+          Add service
+        </Button>
+      </div>
     </form>
   );
 };
