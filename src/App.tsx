@@ -8,8 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import Services from "./pages/services/Services";
 import { DialogProvider } from "./context/dialog/AppDialogContext";
 import { AppDialog } from "./components/AppDialog";
-import { AppointmentProvider } from "./pages/home/context/appointmentContext";
 import { Toaster } from "sonner";
+import { ServiceProvider } from "./context/service/serviceContext";
+import { AppointmentProvider } from "./context/appointment/appointmentContext";
 
 function App() {
   return (
@@ -29,7 +30,14 @@ function App() {
                 }
               />
               <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/services' element={<Services />} />
+              <Route
+                path='/services'
+                element={
+                  <ServiceProvider>
+                    <Services />
+                  </ServiceProvider>
+                }
+              />
             </Routes>
           </PageComponent>
           <AppDialog />

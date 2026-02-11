@@ -1,5 +1,3 @@
-"use client";
-
 import React, { createContext, useReducer, useContext } from "react";
 import type { AppointmentState } from "./types";
 import { formatDay } from "@/lib/utils";

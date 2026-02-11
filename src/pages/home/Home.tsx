@@ -4,80 +4,24 @@ import HomeCalendar from "./components/HomeCalendar";
 import HompageTitle from "./components/HompageTitle";
 import ServiceSelector from "./components/ServiceSelector";
 import TimeSelector from "./components/TimeSelector";
-import { useAppointment } from "./context/appointmentContext";
 import AppFrame from "@/components/AppFrame";
-import { useAppDialog } from "@/context/dialog/AppDialogContext";
 import { useRef } from "react";
-import { handleForm, showToast } from "@/lib/utils";
-import DialogElement from "@/components/DialogElement";
-import { apiHandler } from "@/context/api/apiHandler";
-import { routes } from "@/context/api/routes";
-import type { Appointment } from "./context/types";
+import { useAppointment } from "@/context/appointment/appointmentContext";
+import { postAppointment } from "./handlers/handlers";
+import { useAppointmentCheckPost } from "./hooks/useAppointmentCheckPost";
 
 const Home = () => {
   const { state, dispatch } = useAppointment();
-  const dialog = useAppDialog();
+  const { confirmAppointment } = useAppointmentCheckPost();
   const formRef = useRef<HTMLFormElement>(null);
 
   function checkAppointmentBeforeSubmit() {
-    // Check the client info with the handleForm()
-    const formData = handleForm(formRef);
-    if (!formData) return;
-
-    if (
-      !state.selectedDay ||
-      !state.selectedService ||
-      !state.selectedStartTime ||
-      !state.availableSlots.length
-    ) {
-      showToast("Please check your Appointment selection!", "error");
-      return;
-    }
-    const appointmentData = {
-      clientInfo: formData,
-      service: state.selectedService,
-      date: state.selectedDay,
-      startTime: state.selectedStartTime,
-    };
-
-    dialog.open({
-      title: "The Appointment data is correct?",
-      description: "This cannot be undone",
-      content: (
-        <div>
-          <DialogElement label='Full Name' text={formData.fullName} />
-          <DialogElement label='E-mail' text={formData.email} />
-          <DialogElement label='Phone' text={formData.phone} />
-          <DialogElement label='Date' text={state.selectedDay} />
-          <DialogElement label='Service' text={state.selectedService.name} />
-          <DialogElement label='Time' text={state.selectedStartTime} />
-        </div>
-      ),
-      actions: [
-        { label: "Cancel", variant: "outline" },
-        {
-          label: "Confirm",
-          variant: "default",
-          onClick: () => postAppointment(appointmentData),
-        },
-      ],
+    confirmAppointment({
+      formRef,
+      state,
+      onConfirm: (appointmentData) =>
+        postAppointment(appointmentData, formRef, dispatch),
     });
-  }
-  //  POST the appointment
-  async function postAppointment(data: Appointment) {
-    try {
-      await apiHandler(
-        `${routes.appointment}`,
-        dispatch,
-        () => ({ type: "RESET_APPOINTMENT_STATE" }),
-        { method: "POST", body: data },
-      );
-      formRef.current?.reset();
-      showToast("Appointment booked successfully!", "success");
-    } catch (err) {
-      showToast("Something went wrong! Please try again.", "error");
-      console.error(err);
-    }
   }
 
   return (

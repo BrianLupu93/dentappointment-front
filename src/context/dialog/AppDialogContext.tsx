@@ -19,7 +19,7 @@ export type AppDialogOptions = {
   actions?: DialogAction[];
 };
 
-type DialogContextType = {
+export type DialogContextType = {
   options: AppDialogOptions;
   isOpen: boolean;
   open: (options: AppDialogOptions) => void;

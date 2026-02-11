@@ -1,9 +1,9 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useEffect } from "react";
-import { useAppointment } from "../context/appointmentContext";
-import type { StartTime } from "../context/types";
 import { apiHandler } from "@/context/api/apiHandler";
 import { routes } from "@/context/api/routes";
+import { useAppointment } from "@/context/appointment/appointmentContext";
+import type { StartTime } from "@/context/appointment/types";
 
 const TimeSelector = () => {
   const { state, dispatch } = useAppointment();

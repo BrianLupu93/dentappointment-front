@@ -1,10 +1,10 @@
 import { Calendar } from "@/components/ui/calendar";
 
-import { useAppointment } from "../context/appointmentContext";
 import { formatDay } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { apiHandler } from "@/context/api/apiHandler";
 import { routes } from "@/context/api/routes";
+import { useAppointment } from "@/context/appointment/appointmentContext";
 
 const HomeCalendar = () => {
   const { state, dispatch } = useAppointment();

@@ -2,6 +2,7 @@ export interface Service {
   _id: string;
   name: string;
   duration: number; // minutes
+  active: boolean;
 }
 
 export interface ClientInfo {

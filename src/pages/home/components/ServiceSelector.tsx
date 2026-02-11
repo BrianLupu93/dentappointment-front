@@ -1,9 +1,9 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useEffect } from "react";
-import { useAppointment } from "../context/appointmentContext";
 import { routes } from "@/context/api/routes";
 import { apiHandler } from "@/context/api/apiHandler";
-import type { Service } from "../context/types";
+import { useAppointment } from "@/context/appointment/appointmentContext";
+import type { Service } from "@/context/appointment/types";
 
 const ServiceSelector = () => {
   const { state, dispatch } = useAppointment();
@@ -42,14 +42,16 @@ const ServiceSelector = () => {
       value={state.selectedService?._id ?? ""}
       onValueChange={(value) => handleSelectService(value)}
     >
-      {state.services &&
-        state.services.map((service) => (
+      {state.services
+        ?.filter((service) => service.active)
+        .map((service) => (
           <ToggleGroupItem
             key={`service-${service._id}`}
             value={service._id}
             aria-label={service.name}
           >
-            {service.name}
+            {" "}
+            {service.name}{" "}
           </ToggleGroupItem>
         ))}
     </ToggleGroup>
