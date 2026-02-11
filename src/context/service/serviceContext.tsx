@@ -10,8 +10,6 @@ export const initialState: ServiceState = {
   selectedService: null,
   currentDate: new Date(),
   selectedDay: formatDay(new Date()),
-  loading: false,
-  error: "",
 };
 
 const ServiceContext = createContext<{

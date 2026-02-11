@@ -1,7 +1,7 @@
 import { apiHandler } from "@/context/api/apiHandler";
 import { routes } from "@/context/api/routes";
 import type { AppointmentAction } from "@/context/appointment/appointmentActions";
-import type { Appointment } from "@/context/appointment/types";
+import type { Appointment } from "@/context/appointment/appointmentTypes";
 import { showToast } from "@/lib/utils";
 
 type Dispatch = React.Dispatch<AppointmentAction>;

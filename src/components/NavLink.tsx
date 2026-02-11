@@ -1,18 +1,17 @@
 import { Button } from "./ui/button";
 import { NavLink } from "react-router";
-import { SheetClose } from "./ui/sheet";
+import { useNavigate } from "react-router";
+import { useAuth, type User } from "@/context/auth/authContext";
 
 export interface NavLinksProps {
-  isLoggedIn: boolean;
+  user: User | null;
   mobile?: boolean;
   closeMenu: () => void;
 }
 
-export function NavLinks({
-  isLoggedIn,
-  mobile = false,
-  closeMenu,
-}: NavLinksProps) {
+export function NavLinks({ user, mobile = false, closeMenu }: NavLinksProps) {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const baseClass = mobile ? "text-lg font-medium" : "text-sm font-medium";
 
   return (
@@ -25,7 +24,7 @@ export function NavLinks({
         Appointment
       </NavLink>
 
-      {isLoggedIn && (
+      {user && (
         <>
           <NavLink
             to='/dashboard'
@@ -45,12 +44,18 @@ export function NavLinks({
         </>
       )}
 
-      {!isLoggedIn ? (
-        <Button onClick={() => {}} className='mt-20 sm:mt-0'>
+      {!user ? (
+        <Button
+          onClick={() => {
+            if (mobile) closeMenu();
+            navigate("/login");
+          }}
+          className='mt-20 sm:mt-0'
+        >
           Login
         </Button>
       ) : (
-        <Button onClick={() => {}} className='mt-20 sm:mt-0'>
+        <Button onClick={logout} className='mt-20 sm:mt-0'>
           Logout
         </Button>
       )}

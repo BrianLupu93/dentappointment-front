@@ -6,6 +6,8 @@ export interface ApiOptions extends RequestInit {
   params?: Record<string, string | number>;
 }
 
+import { refreshAccessToken } from "../auth/authContext";
+
 export async function apiHandler<T>(
   url: string,
   dispatch: React.Dispatch<any>,
@@ -16,14 +18,22 @@ export async function apiHandler<T>(
   dispatch({ type: "SET_ERROR", payload: undefined });
 
   try {
+    // Add query params optional
     if (options.params) {
       const queryString = new URLSearchParams(
         Object.entries(options.params).map(([k, v]) => [k, String(v)]),
       ).toString();
       url += `?${queryString}`;
     }
+
     const fetchHeaders = new Headers();
     fetchHeaders.set("Content-Type", "application/json");
+
+    // Attach access token
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      fetchHeaders.set("Authorization", `Bearer ${accessToken}`);
+    }
 
     const fetchOptions: RequestInit = {
       method: options.method || "GET",
@@ -31,17 +41,28 @@ export async function apiHandler<T>(
       body: options.body ? JSON.stringify(options.body) : undefined,
     };
 
-    const res = await fetch(url, fetchOptions);
+    let res = await fetch(url, fetchOptions);
+
+    // If token expired then try refresh
+    if (res.status === 401) {
+      const newToken = await refreshAccessToken();
+
+      if (!newToken) {
+        throw new Error("Session expired");
+      }
+
+      // Retry original request with new token
+      fetchHeaders.set("Authorization", `Bearer ${newToken}`);
+      res = await fetch(url, fetchOptions);
+    }
+
     if (!res.ok) throw new Error("Server error");
 
     const data: T = await res.json();
-
     dispatch(onSuccessAction(data));
     return data;
   } catch (err: any) {
-    dispatch({ type: "SET_ERROR", payload: err.message });
+    console.error(err.message);
     throw err;
-  } finally {
-    dispatch({ type: "SET_LOADING", payload: false });
   }
 }

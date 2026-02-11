@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { routes } from "@/context/api/routes";
 import { apiHandler } from "@/context/api/apiHandler";
 import { useAppointment } from "@/context/appointment/appointmentContext";
-import type { Service } from "@/context/appointment/types";
+import type { Service } from "@/context/appointment/appointmentTypes";
 
 const ServiceSelector = () => {
   const { state, dispatch } = useAppointment();

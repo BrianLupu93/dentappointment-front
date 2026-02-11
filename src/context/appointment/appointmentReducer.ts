@@ -1,6 +1,6 @@
 import type { AppointmentAction } from "./appointmentActions";
 import { initialState } from "./appointmentContext";
-import type { AppointmentState } from "./types";
+import type { AppointmentState } from "./appointmentTypes";
 
 export function appointmentReducer(
   state: AppointmentState,
@@ -33,12 +33,6 @@ export function appointmentReducer(
         selectedStartTime: initialState.selectedStartTime,
         availableSlots: initialState.availableSlots,
       };
-
-    case "SET_LOADING":
-      return { ...state, loading: action.payload };
-
-    case "SET_ERROR":
-      return { ...state, error: action.payload };
 
     default:
       return state;

@@ -34,6 +34,4 @@ export interface AppointmentState {
   currentDate: Date;
   selectedDay: FormattedDate;
   calendarAvailability: AvailableCalendarDay[];
-  error?: string;
-  loading: boolean;
 }

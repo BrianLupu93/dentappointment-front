@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { apiHandler } from "@/context/api/apiHandler";
 import { routes } from "@/context/api/routes";
 import { useAppointment } from "@/context/appointment/appointmentContext";
-import type { StartTime } from "@/context/appointment/types";
+import type { StartTime } from "@/context/appointment/appointmentTypes";
 
 const TimeSelector = () => {
   const { state, dispatch } = useAppointment();

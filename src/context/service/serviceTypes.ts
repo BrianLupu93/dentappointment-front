@@ -34,6 +34,4 @@ export interface ServiceState {
   selectedService: ServiceAdmin | null;
   currentDate: Date;
   selectedDay: FormattedDate;
-  error?: string;
-  loading: boolean;
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import type { AppointmentState } from "./types";
+import type { AppointmentState } from "./appointmentTypes";
 import { formatDay } from "@/lib/utils";
 import { appointmentReducer } from "./appointmentReducer";
 import type { AppointmentAction } from "./appointmentActions";
@@ -12,8 +12,6 @@ export const initialState: AppointmentState = {
   currentDate: new Date(),
   selectedDay: formatDay(new Date()),
   calendarAvailability: [],
-  loading: false,
-  error: "",
 };
 
 const AppointmentContext = createContext<{
