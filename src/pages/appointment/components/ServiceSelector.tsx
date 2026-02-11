@@ -50,7 +50,6 @@ const ServiceSelector = () => {
             value={service._id}
             aria-label={service.name}
           >
-            {" "}
             {service.name}{" "}
           </ToggleGroupItem>
         ))}

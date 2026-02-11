@@ -26,3 +26,23 @@ export async function postAppointment(
     console.error(err);
   }
 }
+
+//  ------------------------- GET CALENDAR AVAILABILITY ---------------
+export async function fetchCalendarAvailability(
+  startDate: string,
+  dispatch: Dispatch,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) {
+  setLoading(true);
+  try {
+    await apiHandler(
+      `${routes.availability}/month`,
+      dispatch,
+      (data) => ({ type: "SET_CALENDAR_AVAILABILITY", payload: data }),
+      { method: "GET", params: { startDate: startDate } },
+    );
+  } catch (err) {
+    console.error(err);
+  }
+  setLoading(false);
+}

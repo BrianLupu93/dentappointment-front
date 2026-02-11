@@ -29,7 +29,7 @@ export const DashboardProvider = ({
   );
 };
 
-export const useService = () => {
+export const useDashboard = () => {
   const context = useContext(DashboardContext);
   if (!context)
     throw new Error("useDashboard must be used within DashboardProvider");

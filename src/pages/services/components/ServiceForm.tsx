@@ -78,7 +78,7 @@ export const ServiceForm = ({ name, duration, active, _id }: ServiceProps) => {
 
         {update.value && update.id === _id ? (
           <FaRegSave
-            className='text-blue-600 hover:scale-110 hover:cursor-pointer w-2/12 '
+            className='text-green-600 hover:scale-110 hover:cursor-pointer w-2/12 '
             size={20}
             onClick={() =>
               confirmUpdate({

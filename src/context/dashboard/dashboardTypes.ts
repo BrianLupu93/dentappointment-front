@@ -16,11 +16,13 @@ export type EndTime = string; // format 10:00
 export type FormattedDate = string; // format 10-05-2026
 
 export interface Appointment {
+  _id: string;
   clientInfo: ClientInfo;
   service: Service;
   date: FormattedDate;
   startTime: StartTime;
   endTime: EndTime;
+  done: boolean;
 }
 
 export interface DashboardState {

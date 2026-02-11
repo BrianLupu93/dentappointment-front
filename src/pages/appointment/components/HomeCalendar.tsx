@@ -2,32 +2,16 @@ import { Calendar } from "@/components/ui/calendar";
 
 import { formatDay } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { apiHandler } from "@/context/api/apiHandler";
-import { routes } from "@/context/api/routes";
 import { useAppointment } from "@/context/appointment/appointmentContext";
+import { fetchCalendarAvailability } from "../handlers/handlers";
 
 const HomeCalendar = () => {
   const { state, dispatch } = useAppointment();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchCalendarAvailability(state.selectedDay);
+    fetchCalendarAvailability(state.selectedDay, dispatch, setLoading);
   }, []);
-
-  async function fetchCalendarAvailability(startDate: string) {
-    setLoading(true);
-    try {
-      await apiHandler(
-        `${routes.availability}/month`,
-        dispatch,
-        (data) => ({ type: "SET_CALENDAR_AVAILABILITY", payload: data }),
-        { method: "GET", params: { startDate: startDate } },
-      );
-    } catch (err) {
-      console.error(err);
-    }
-    setLoading(false);
-  }
 
   const handleSelectDay = (day: Date) => {
     const formatted = formatDay(day); //
@@ -54,7 +38,11 @@ const HomeCalendar = () => {
         booked: "[&>button]:line-through opacity-100",
       }}
       onMonthChange={(value) => {
-        return fetchCalendarAvailability(formatDay(value));
+        return fetchCalendarAvailability(
+          formatDay(value),
+          dispatch,
+          setLoading,
+        );
       }}
     />
   );
