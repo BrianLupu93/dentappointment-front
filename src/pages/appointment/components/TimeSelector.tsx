@@ -57,13 +57,13 @@ const TimeSelector = () => {
 
   if (state.selectedService)
     return (
-      <div className='text-red-600 text-left'>
+      <div className='text-orange-600 text-left'>
         Sorry! The selected service is not available for the selected day.
         Please choose another day!
       </div>
     );
   return (
-    <div className='text-red-600 text-left'>
+    <div className='text-orange-500 text-left'>
       Please select a service to get the available time
     </div>
   );

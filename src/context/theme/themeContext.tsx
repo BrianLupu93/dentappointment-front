@@ -17,7 +17,11 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // Set the default value
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light"; // SSR safety
+    const saved = localStorage.getItem("theme") as Theme | null;
+    return saved ?? "light";
+  });
   //   Save the Theme choice oin localStorage
   useEffect(() => {
     const saved = localStorage.getItem("theme") as Theme;

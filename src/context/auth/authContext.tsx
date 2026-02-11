@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { routes } from "../api/routes";
+import { showToast } from "@/lib/utils";
 
 export interface User {
   id: string;
@@ -61,7 +62,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),
       });
-    } catch {}
+      showToast("Logout successfully!", "success");
+    } catch (err) {
+      showToast("Something went wrong! Please try again.", "error");
+      console.error(err);
+    }
 
     setUser(null);
     setAccessToken(null);

@@ -33,11 +33,11 @@ const Appointment = () => {
         <div className='flex flex-col sm:flex-row gap-4 items-center mb-4'>
           <div className='flex flex-col w-full sm:w-1/2 gap-6'>
             <ClientForm ref={formRef} />
-            <div className='flex flex-col items-start gap-4 mb-4'>
-              <div className='text-left font-semibold'>
-                Selected day:{" "}
-                <span className='text-red-600'>{state.selectedDay}</span>
-              </div>
+            <div className='flex flex-wrap font-semibold items-center gap-4 mb-4 mt-8'>
+              <span>Selected day:</span>
+              <span className='bg-black dark:bg-white text-white dark:text-black px-2 py-1 rounded-sm'>
+                {state.selectedDay}
+              </span>
             </div>
           </div>
 

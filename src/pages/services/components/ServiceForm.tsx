@@ -63,10 +63,10 @@ export const ServiceForm = ({ name, duration, active, _id }: ServiceProps) => {
         />
       </div>
 
-      <div className='flex gap-4 w-3/12 sm:w-2/12 justify-center'>
+      <div className='flex gap-4 w-3/12 sm:w-2/12 justify-center items-center'>
         <TiDelete
           className='text-red-600 hover:scale-110 hover:cursor-pointer'
-          size={20}
+          size={24}
           onClick={() =>
             confirmDelete({
               id: _id,
@@ -76,11 +76,11 @@ export const ServiceForm = ({ name, duration, active, _id }: ServiceProps) => {
           }
         />
 
-        {update.value && update.id === _id ? (
-          <FaRegSave
-            className='text-green-600 hover:scale-110 hover:cursor-pointer w-2/12 '
-            size={20}
-            onClick={() =>
+        <FaRegSave
+          className={`${update.id && update.value ? "text-blue-600 cursor-pointer hover:scale-110 " : "text-gray-500 cursor-not-allowed"}  w-3/12`}
+          size={22}
+          onClick={() => {
+            if (update.value && update.id) {
               confirmUpdate({
                 id: _id,
                 nameRef: nameRef,
@@ -91,10 +91,10 @@ export const ServiceForm = ({ name, duration, active, _id }: ServiceProps) => {
                   dispatch({ type: "SET_SELECTED_SERVICE", payload: null });
                   setToUpdate({ id: "", value: false });
                 },
-              })
+              });
             }
-          />
-        ) : null}
+          }}
+        />
       </div>
     </form>
   );

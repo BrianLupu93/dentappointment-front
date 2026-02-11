@@ -55,7 +55,15 @@ export function NavLinks({ user, mobile = false, closeMenu }: NavLinksProps) {
           Login
         </Button>
       ) : (
-        <Button onClick={logout} className='mt-20 sm:mt-0'>
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            logout();
+            mobile && closeMenu();
+            navigate("/");
+          }}
+          className='mt-20 sm:mt-0'
+        >
           Logout
         </Button>
       )}

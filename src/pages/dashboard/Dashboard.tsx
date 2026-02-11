@@ -62,7 +62,7 @@ const Dashboard = () => {
               })
             ) : (
               <TableRow className='h-12'>
-                <TableCell colSpan={5} className='text-center text-red-600'>
+                <TableCell colSpan={5} className='text-center text-orange-600'>
                   There are no Appointments on the selected Day!
                 </TableCell>
               </TableRow>
