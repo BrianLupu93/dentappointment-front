@@ -1,6 +1,6 @@
 import { TbDental } from "react-icons/tb";
 
-const HompageTitle = () => {
+const AppointmentTitle = () => {
   return (
     <div className='w-full flex justify-center items-end mb-10'>
       <span className='text-3xl sm:text-5xl '>Dent</span>
@@ -10,4 +10,4 @@ const HompageTitle = () => {
   );
 };
 
-export default HompageTitle;
+export default AppointmentTitle;

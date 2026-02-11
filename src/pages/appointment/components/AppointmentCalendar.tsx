@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useAppointment } from "@/context/appointment/appointmentContext";
 import { fetchCalendarAvailability } from "../handlers/handlers";
 
-const HomeCalendar = () => {
+const AppointmentCalendar = () => {
   const { state, dispatch } = useAppointment();
   const [loading, setLoading] = useState(false);
 
@@ -48,4 +48,4 @@ const HomeCalendar = () => {
   );
 };
 
-export default HomeCalendar;
+export default AppointmentCalendar;

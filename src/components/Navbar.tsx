@@ -3,7 +3,9 @@ import ThemeSwitch from "./ThemeSwitch";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle } from "./ui/sheet";
 import { IoMenu } from "react-icons/io5";
 import { NavLinks } from "./NavLink";
+import { useState } from "react";
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
   const isLoggedIn = true;
 
   return (
@@ -14,11 +16,11 @@ const Navbar = () => {
         {/* Desktop */}
         <div className='hidden md:flex items-center gap-6'>
           <ThemeSwitch />
-          <NavLinks isLoggedIn={isLoggedIn} />
+          <NavLinks isLoggedIn={isLoggedIn} closeMenu={() => setOpen(false)} />
         </div>
         {/* Mobile */}
         <div className='md:hidden'>
-          <Sheet>
+          <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <IoMenu size={30} aria-label='Open menu' />
             </SheetTrigger>
@@ -26,7 +28,11 @@ const Navbar = () => {
             <SheetContent side='right' className='w-64'>
               <div className='mt-10 flex flex-col gap-6 p-6'>
                 <ThemeSwitch />
-                <NavLinks isLoggedIn={isLoggedIn} mobile />
+                <NavLinks
+                  isLoggedIn={isLoggedIn}
+                  mobile
+                  closeMenu={() => setOpen(false)}
+                />
               </div>
             </SheetContent>
           </Sheet>

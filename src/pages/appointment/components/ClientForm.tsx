@@ -6,10 +6,7 @@ type ClientFormProps = {};
 const ClientForm = forwardRef<HTMLFormElement, ClientFormProps>(
   (props, ref) => {
     return (
-      <form
-        className='w-full sm:w-1/2 flex flex-col gap-4 items-center'
-        ref={ref}
-      >
+      <form className='w-full flex flex-col gap-4 items-center' ref={ref}>
         <div className='text-left font-semibold'>Personal information:</div>
         <Input
           placeholder='Full Name'

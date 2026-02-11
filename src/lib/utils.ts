@@ -65,19 +65,19 @@ type ToastType = "success" | "error" | "warning" | "info" | "default";
 export function showToast(message: string, type: ToastType = "default") {
   switch (type) {
     case "success":
-      toast.success(message, { position: "top-right" });
+      toast.success(message, { position: "top-left" });
       break;
     case "error":
-      toast.error(message, { position: "top-right" });
+      toast.error(message, { position: "top-left" });
       break;
     case "warning":
-      toast.warning(message, { position: "top-right" });
+      toast.warning(message, { position: "top-left" });
       break;
     case "info":
-      toast.info(message, { position: "top-right" });
+      toast.info(message, { position: "top-left" });
       break;
     default:
-      toast(message, { position: "top-right" });
+      toast(message, { position: "top-left" });
   }
 }
 
