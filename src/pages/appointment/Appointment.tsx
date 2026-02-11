@@ -10,7 +10,7 @@ import { useAppointment } from "@/context/appointment/appointmentContext";
 import { postAppointment } from "./handlers/handlers";
 import { useAppointmentCheckPost } from "./hooks/useAppointmentCheckPost";
 
-const Home = () => {
+const Appointment = () => {
   const { state, dispatch } = useAppointment();
   const { confirmAppointment } = useAppointmentCheckPost();
   const formRef = useRef<HTMLFormElement>(null);
@@ -51,4 +51,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Appointment;

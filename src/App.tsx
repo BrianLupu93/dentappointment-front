@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import PageComponent from "./components/PageComponent";
 import { ThemeProvider } from "./context/theme/themeContext";
 import Dashboard from "./pages/dashboard/Dashboard";
-import Home from "./pages/home/Home";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Services from "./pages/services/Services";
 import { DialogProvider } from "./context/dialog/AppDialogContext";
@@ -11,6 +10,7 @@ import { AppDialog } from "./components/AppDialog";
 import { Toaster } from "sonner";
 import { ServiceProvider } from "./context/service/serviceContext";
 import { AppointmentProvider } from "./context/appointment/appointmentContext";
+import Appointment from "./pages/appointment/Appointment";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
                 path='/'
                 element={
                   <AppointmentProvider>
-                    <Home />
+                    <Appointment />
                   </AppointmentProvider>
                 }
               />

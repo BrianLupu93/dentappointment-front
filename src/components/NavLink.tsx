@@ -12,7 +12,7 @@ export function NavLinks({ isLoggedIn, mobile = false }: NavLinksProps) {
   return (
     <div className={mobile ? "flex flex-col gap-4" : "flex items-center gap-4"}>
       <NavLink to='/' className={baseClass}>
-        Home
+        Appointment
       </NavLink>
 
       {isLoggedIn && (
