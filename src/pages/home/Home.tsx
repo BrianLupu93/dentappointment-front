@@ -63,7 +63,7 @@ const Home = () => {
       ],
     });
   }
-
+  //  POST the appointment
   async function postAppointment(data: Appointment) {
     try {
       await apiHandler(
@@ -72,7 +72,10 @@ const Home = () => {
         () => ({ type: "RESET_APPOINTMENT_STATE" }),
         { method: "POST", body: data },
       );
+      formRef.current?.reset();
+      showToast("Appointment booked successfully!", "success");
     } catch (err) {
+      showToast("Something went wrong! Please try again.", "error");
       console.error(err);
     }
   }
