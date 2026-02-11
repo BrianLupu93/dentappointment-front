@@ -1,36 +1,37 @@
 import AppFrame from "@/components/AppFrame";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Title from "@/components/ui/Title";
-import React from "react";
-
-const Service = ({ name, duration, active, id }) => {
-  return (
-    <form className='flex gap-2 sm:gap-4 items-center'>
-      <Input defaultValue={name} type='text' className='w-6/12 sm:w-8/12' />
-      <Input
-        defaultValue={duration}
-        type='number'
-        className='w-3/12 sm:w-2/12 no-spinner'
-        min={15}
-        max={120}
-      />
-      <Input
-        defaultValue={active}
-        type='checkbox'
-        className='w-4 h-4 mx-auto'
-      />
-    </form>
-  );
-};
+import { useEffect, useRef } from "react";
+import { useService } from "@/context/service/serviceContext";
+import { ServiceForm } from "./components/ServiceForm";
+import AddNewServiceForm from "./components/AddNewServiceForm";
+import { useServiceCheckPost } from "./hooks/useServiceCheckPost";
+import { fetchServices, postService } from "./handlers/handlers";
 
 const Services = () => {
-  const services = [
-    { id: "id1", name: "serviceName1", duration: 30, active: true },
-    { id: "id2", name: "serviceName2", duration: 30, active: true },
-    { id: "id3", name: "serviceName3", duration: 30, active: true },
-    { id: "id4", name: "serviceName4", duration: 30, active: true },
-  ];
+  const { state, dispatch } = useService();
+  const { checkBeforeSubmit } = useServiceCheckPost();
+  const serviceNameRef = useRef<HTMLInputElement>(null);
+  const serviceDurationRef = useRef<HTMLInputElement>(null);
+
+  // On mount call the fetchServices to get all the available services
+  useEffect(() => {
+    fetchServices(dispatch);
+  }, []);
+
+  function handleSubmit() {
+    checkBeforeSubmit({
+      nameRef: serviceNameRef,
+      durationRef: serviceDurationRef,
+      onConfirm: ({ name, duration }) =>
+        postService(
+          { name, duration },
+          serviceNameRef,
+          serviceDurationRef,
+          dispatch,
+        ),
+    });
+  }
+
   return (
     <>
       <Title children='Service management' />
@@ -42,32 +43,28 @@ const Services = () => {
           <span className='mx-auto'>Active</span>
         </div>
         <div className='flex flex-col gap-4 mb-10'>
-          {services.map((service) => {
-            return (
-              <Service
-                name={service.name}
-                duration={service.duration}
-                active={service.active}
-              />
-            );
-          })}
+          {state.services ? (
+            state.services.map((service) => {
+              return (
+                <ServiceForm
+                  _id={service._id}
+                  key={service._id}
+                  name={service.name}
+                  duration={service.duration}
+                  active={service.active}
+                />
+              );
+            })
+          ) : (
+            <div>You have no Services. Below can you add a new service.</div>
+          )}
         </div>
         <div className=' flex mb-4 font-semibold'>Add a new Service:</div>
-        <form className='flex gap-4 items-center'>
-          <Input
-            placeholder='Service name'
-            type='text'
-            className='w-6/12 sm:w-8/12'
-          />
-          <Input
-            placeholder='min'
-            type='number'
-            className='w-3/12 sm:w-2/12 no-spinner'
-            min={15}
-            max={120}
-          />
-          <Button> Add</Button>
-        </form>
+        <AddNewServiceForm
+          serviceNameRef={serviceNameRef}
+          serviceDurationRef={serviceDurationRef}
+          handleClick={handleSubmit}
+        />
       </AppFrame>
     </>
   );
