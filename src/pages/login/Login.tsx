@@ -16,7 +16,13 @@ const Login = () => {
     <>
       <Title children='Login' />
       <AppFrame extraClass='w-10/12! sm:w-6/12! mx-auto!'>
-        <div className='w-full flex flex-col gap-4 items-center p-2 sm:p-4 mb-6'>
+        <form
+          className='w-full flex flex-col gap-4 items-center p-2 sm:p-4 mb-6'
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin(emailRef, pwdRef, login, navigate);
+          }}
+        >
           <Input
             placeholder='E-mail'
             name='email'
@@ -31,13 +37,8 @@ const Login = () => {
             autoComplete='of'
             ref={pwdRef}
           />
-        </div>
-        <Button
-          type='button'
-          onClick={() => handleLogin(emailRef, pwdRef, login, navigate)}
-        >
-          Login
-        </Button>
+          <Button type='submit'>Login</Button>
+        </form>
       </AppFrame>
     </>
   );

@@ -21,8 +21,13 @@ export async function postAppointment(
     );
     formRef.current?.reset();
     showToast("Appointment booked successfully!", "success");
-  } catch (err) {
-    showToast("Something went wrong! Please try again.", "error");
+  } catch (err: any) {
+    if (err.code === 11000) {
+      showToast("This time slot is already taken", "error");
+    } else {
+      showToast("Something went wrong! Please try again.", "error");
+    }
+
     console.error(err);
   }
 }
