@@ -16,6 +16,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import Login from "./pages/login/Login";
 import { AuthProvider } from "./context/auth/authContext";
 import Register from "./pages/register/Register";
+import CancelAppointment from "./pages/cancelAppointment/cancelAppointment";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
                 {/* PUBLIC ROUTES */}
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
+                <Route
+                  path='/cancel-appointment'
+                  element={<CancelAppointment />}
+                />
                 <Route
                   path='/'
                   element={
