@@ -15,6 +15,7 @@ import { DashboardProvider } from "./context/dashboard/dashboardContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Login from "./pages/login/Login";
 import { AuthProvider } from "./context/auth/authContext";
+import Register from "./pages/register/Register";
 
 function App() {
   return (
@@ -24,11 +25,11 @@ function App() {
           <DialogProvider>
             <Toaster />
             <Navbar />
-
             <PageComponent>
               <Routes>
                 {/* PUBLIC ROUTES */}
                 <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
                 <Route
                   path='/'
                   element={
